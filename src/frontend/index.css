@@ -1,0 +1,187 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Fonts ──────────────────────────────────────────────────────────── */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("/assets/fonts/BricolageGrotesque[opsz,wdth,wght].woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/assets/fonts/JetBrainsMono[wght].woff2") format("woff2");
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Sora";
+  src: url("/assets/fonts/Sora[wght].woff2") format("woff2");
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+
+    /* Dark theme as default — industrial/studio aesthetic */
+    --background: 0.14 0.008 240;
+    --foreground: 0.94 0.006 240;
+
+    --card: 0.17 0.01 240;
+    --card-foreground: 0.94 0.006 240;
+
+    --popover: 0.19 0.012 240;
+    --popover-foreground: 0.94 0.006 240;
+
+    --primary: 0.78 0.18 195;
+    --primary-foreground: 0.1 0.01 240;
+
+    --secondary: 0.22 0.012 240;
+    --secondary-foreground: 0.85 0.006 240;
+
+    --muted: 0.2 0.01 240;
+    --muted-foreground: 0.55 0.012 240;
+
+    --accent: 0.72 0.2 195;
+    --accent-foreground: 0.1 0.01 240;
+
+    --destructive: 0.62 0.22 25;
+    --destructive-foreground: 0.97 0 0;
+
+    --border: 0.26 0.014 240;
+    --input: 0.22 0.012 240;
+    --ring: 0.78 0.18 195;
+
+    --chart-1: 0.78 0.18 195;
+    --chart-2: 0.72 0.16 160;
+    --chart-3: 0.65 0.2 290;
+    --chart-4: 0.7 0.18 55;
+    --chart-5: 0.68 0.22 15;
+
+    --sidebar: 0.12 0.008 240;
+    --sidebar-foreground: 0.94 0.006 240;
+    --sidebar-primary: 0.78 0.18 195;
+    --sidebar-primary-foreground: 0.1 0.01 240;
+    --sidebar-accent: 0.2 0.01 240;
+    --sidebar-accent-foreground: 0.85 0.006 240;
+    --sidebar-border: 0.24 0.014 240;
+    --sidebar-ring: 0.78 0.18 195;
+
+    /* Custom audio-specific tokens */
+    --glow-teal: 0.78 0.18 195;
+    --wave-bar: 0.65 0.15 195;
+    --surface-raised: 0.19 0.012 240;
+    --surface-sunken: 0.11 0.007 240;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Sora", sans-serif;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: oklch(var(--surface-sunken));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: oklch(var(--border));
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: oklch(var(--muted-foreground));
+  }
+
+  /* Audio element custom styling */
+  audio {
+    width: 100%;
+    height: 36px;
+    accent-color: oklch(var(--primary));
+    background: oklch(var(--surface-sunken));
+    border-radius: var(--radius);
+    outline: none;
+  }
+  audio:focus-visible {
+    outline: 2px solid oklch(var(--ring));
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: "Bricolage Grotesque", sans-serif;
+  }
+  .font-mono-custom {
+    font-family: "JetBrains Mono", monospace;
+  }
+
+  .glow-teal {
+    box-shadow: 0 0 20px oklch(var(--glow-teal) / 0.2),
+      0 0 40px oklch(var(--glow-teal) / 0.08);
+  }
+
+  .glow-teal-sm {
+    box-shadow: 0 0 10px oklch(var(--glow-teal) / 0.25),
+      0 0 20px oklch(var(--glow-teal) / 0.1);
+  }
+
+  .surface-raised {
+    background: oklch(var(--surface-raised));
+  }
+
+  .surface-sunken {
+    background: oklch(var(--surface-sunken));
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px oklch(var(--glow-teal) / 0.4);
+  }
+
+  /* Waveform bars decorative element */
+  .waveform-bars {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .waveform-bar {
+    width: 3px;
+    background: oklch(var(--wave-bar) / 0.6);
+    border-radius: 2px;
+    animation: wave-pulse 1.2s ease-in-out infinite;
+  }
+
+  .waveform-bar:nth-child(1) { height: 8px; animation-delay: 0s; }
+  .waveform-bar:nth-child(2) { height: 16px; animation-delay: 0.1s; }
+  .waveform-bar:nth-child(3) { height: 12px; animation-delay: 0.2s; }
+  .waveform-bar:nth-child(4) { height: 20px; animation-delay: 0.15s; }
+  .waveform-bar:nth-child(5) { height: 10px; animation-delay: 0.3s; }
+  .waveform-bar:nth-child(6) { height: 18px; animation-delay: 0.05s; }
+  .waveform-bar:nth-child(7) { height: 8px; animation-delay: 0.25s; }
+
+  @keyframes wave-pulse {
+    0%, 100% { transform: scaleY(1); opacity: 0.6; }
+    50% { transform: scaleY(0.4); opacity: 1; }
+  }
+
+  /* Static waveform for non-playing items */
+  .waveform-static .waveform-bar {
+    animation: none;
+    opacity: 0.35;
+  }
+}
